@@ -9,13 +9,21 @@ import android.database.sqlite.SQLiteOpenHelper
 class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory? = null) :
     SQLiteOpenHelper(context, DATABASE_NAME, factory, DATABASE_VERSION) {
 
+    companion object{
+        private val DATABASE_NAME = "nombres"
+        private val DATABASE_VERSION = 1
+        val TABLE_NAME = "name_table"
+        val ID_COL = "id"
+        val NAME_COl = "nombre"
+        val AGE_COL = "edad"
+    }
+
     override fun onCreate(db: SQLiteDatabase) {
 
         val query = ("CREATE TABLE " + TABLE_NAME + " ("
                 + ID_COL + " INTEGER PRIMARY KEY, " +
                 NAME_COl + " TEXT," +
                 AGE_COL + " TEXT" + ")")
-
         db.execSQL(query)
     }
 
@@ -40,19 +48,13 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory? = null) 
         db.close()
     }
 
-//    fun delName(name : String, age : String ){
-//
-//        val values = ContentValues()
-//
-//        values.put(NAME_COl, name)
-//        values.put(AGE_COL, age)
-//
-//        val db = this.writableDatabase
-//
-//        db.delete(TABLE_NAME, null, values)
-//
-//        db.close()
-//    }
+    fun delName(name : String, age : String ){
+        val db = this.writableDatabase
+
+        db.delete(TABLE_NAME, "nombre=?", arrayOf(name))
+
+        db.close()
+    }
 
     fun getName(): Cursor? {
 
@@ -61,17 +63,4 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory? = null) 
         return db.rawQuery("SELECT * FROM " + TABLE_NAME, null)
     }
 
-    companion object{
-        private val DATABASE_NAME = "nombres"
-
-        private val DATABASE_VERSION = 1
-
-        val TABLE_NAME = "name_table"
-
-        val ID_COL = "id"
-
-        val NAME_COl = "nombre"
-
-        val AGE_COL = "edad"
-    }
 }

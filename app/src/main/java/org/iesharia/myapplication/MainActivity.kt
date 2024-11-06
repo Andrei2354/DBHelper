@@ -135,6 +135,22 @@ fun MainActivity(modifier: Modifier) {
             Button(
                 modifier = bModifier,
                 onClick = {
+
+
+                    val name = nameValue
+                    val age = ageValue
+
+                    db.delName(name, age)
+
+                    nameValue = ""
+                    ageValue = ""
+                }
+            ) {
+                Text(text = "Eliminar")
+            }
+            Button(
+                modifier = bModifier,
+                onClick = {
                     val db = DBHelper(context, null)
 
                     val cursor = db.getName()
