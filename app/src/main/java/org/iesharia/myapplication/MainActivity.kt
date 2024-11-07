@@ -1,7 +1,6 @@
 package org.iesharia.myapplication
 
 import android.annotation.SuppressLint
-import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -31,9 +30,10 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import org.iesharia.myapplication.data.DBHelper
 import org.iesharia.myapplication.ui.theme.MyApplicationTheme
 
-
+// data, view, controller, Mainactivity Ordenar el contenido por archivo
 
 class MainActivity : ComponentActivity() {
 
@@ -152,8 +152,9 @@ fun MainActivity(modifier: Modifier) {
                 modifier = bModifier,
                 onClick = {
                     val db = DBHelper(context, null)
-
                     val cursor = db.getName()
+
+
 
                     cursor!!.moveToFirst()
                     lName += "\n" + cursor.getString(cursor.getColumnIndex(DBHelper.NAME_COl))

@@ -1,4 +1,4 @@
-package org.iesharia.myapplication
+package org.iesharia.myapplication.data
 
 import android.content.ContentValues
 import android.content.Context
@@ -44,7 +44,8 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory? = null) 
         val db = this.writableDatabase
 
         db.insert(TABLE_NAME, null, values)
-
+        values.clear()
+        values.clear()
         db.close()
     }
 
